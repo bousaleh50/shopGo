@@ -1,0 +1,16 @@
+.image_container {
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: right;
+    animation-name: backgroundChanger;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+}
+
+
+@keyframes backgroundChanger {
+    10%{background-image: url("../../assets/images/apple_iphone.png");}
+    20%{background-image: url("../../assets/images/apple_logo.png");}
+    50%{background-image: url("../../assets/images/black_iphone.jpg");}
+    100%{background-image: url("../../assets/images/sidebar_image.jpg");}
+}

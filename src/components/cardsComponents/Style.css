@@ -1,0 +1,7 @@
+.cards::-webkit-scrollbar {
+    display: none;
+}
+
+.card:hover .addToCardBtn {
+    display: block;
+}
