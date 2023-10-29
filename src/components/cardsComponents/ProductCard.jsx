@@ -5,7 +5,7 @@ import "./style.css";
 
 function ProductCard() {
     return (
-        <div className="card flex flex-col border-2  shrink-0 w-1/2 h-2/5  sm:w-2/12 sm:h-2/12">
+        <div className="card flex flex-col border-2  shrink-0 w-1/2 h-2/5  md:w-2/12 md:h-2/12">
             {/** card Header */}
             <div className="flex flex-col ">
                 <div className="flex justify-between p-2">
