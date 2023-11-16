@@ -6,7 +6,7 @@ function BestSellingPRoducts() {
             <div className="text-red-500 border-l-8 border-red-500 pl-2">
                 <p>This Month</p>
             </div>
-            <div className="md:flex md:justify-between md:items-center">
+            <div className="flex justify-between items-center p-4">
                 <p className="text-3xl">Best Selling Products</p>
                 <button className="bg-red-500 text-white p-2  ml-auto rounded md:w-36">View all</button>
             </div>

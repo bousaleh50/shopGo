@@ -17,6 +17,7 @@ function Login() {
                     <div className="flex flex-col w-full items-center gap-4">
                         <button className="bg-red-400 text-white w-1/2  rounded-md p-2 hover:bg-red-200">Login</button>
                         <a href="" className="text-red-500 hover:text-red-300">Forget Password?</a>
+                        <span>Dont have an Account <a href="" className="underline">Sign up</a></span>
                     </div>
                 </form>
             </div>

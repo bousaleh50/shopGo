@@ -10,6 +10,7 @@ import SensorOccupiedOutlinedIcon from '@mui/icons-material/SensorOccupiedOutlin
 import "./style.css";
 import { useRef } from 'react';
 import Departments from '../departments/Departments';
+import { Link } from 'react-router-dom';
 
 
 function Navbar() {
@@ -38,7 +39,7 @@ function Navbar() {
                 </select>
             </div>
             <nav className="w-screen p-4 flex flex-wrap gap-4  justify-evenly items-center border-b-2 sm:flex-nowrap sm:gap-0 " >
-                <div>
+                <div className=''>
                  <h1 className='text-3xl font-black'>Shop<span className='text-red-500'>Go</span></h1>
                 </div>
                 <div className='w-1/2 h-screen absolute right-0 bottom-0 hidden flex-col items-center gap-20 p-4 bg-white border md:border-none md:flex md:relative md:h-fit ' ref={menuRef}>
@@ -46,29 +47,29 @@ function Navbar() {
                         <CloseOutlinedIcon className='text-3Xl' onClick={()=>handleShowMenu(true)}/>
                     </div>
                     <ul className='flex flex-col w-full md:flex-row md:gap-10 justify-end '>
-                        <li className='border-b-2 py-4 flex gap-4 hover:bg-gray-300 md:border-none md:py-0'>
+                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>
                               <HomeOutlinedIcon/>
                             </div>
                             <a href="">Home</a>
                         </li>
-                        <li className='border-b-2 py-4 flex gap-4 hover:bg-gray-300 md:border-none md:py-0'>
+                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>
                              <MailOutlineOutlinedIcon/>
                             </div>
                             <a href="">Contact</a>
                         </li>
-                        <li className='border-b-2 py-4 flex gap-4 hover:bg-gray-300 md:border-none md:py-0'>
+                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>
                              <InfoOutlinedIcon/>
                             </div>
                             <a href="">About</a>
                         </li>
-                        <li className='border-b-2 py-4 flex gap-4 hover:bg-gray-300 md:border-none md:py-0'>
+                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>
                              <SensorOccupiedOutlinedIcon className=''/>
                             </div>
-                            <a href="">Sign Up</a>
+                            <Link to="/register">Sign up</Link>
                         </li>
                     </ul>
                 </div>
@@ -81,7 +82,7 @@ function Navbar() {
                   </form>
                 </div>
                 <div className='ml-auto flex gap-10'>
-                    <ShoppingCartOutlinedIcon className='hover:text-red-500'/>
+                    <Link to="/cart"><ShoppingCartOutlinedIcon className='hover:text-red-500'/></Link>
                     <FavoriteBorderOutlinedIcon className='hover:text-red-500'/>
                     <div className='ml-auto md:hidden'>
                      <MenuOutlinedIcon className='hover:text-red-500' onClick={()=>handleShowMenu(false)}/>
