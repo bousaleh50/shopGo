@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import sidebar_image from "../../assets/images/sidebar_image.jpg"
 
 function Register() {
@@ -18,7 +19,7 @@ function Register() {
                     <div className="flex flex-col w-full items-center gap-4">
                         <button className="bg-red-400 text-white w-1/2  rounded-md p-2 hover:bg-red-200">Create Account</button>
                         <button className="w-1/2 border-2 rounded-md p-2 hover:bg-red-200">Sing up with Google</button>
-                        <p href="" >Already have account?<a href="" className="underline">Log in</a></p>
+                        <p href="" >Already have account?<Link to={"/login"} className="text-red-500 underline">Log in</Link></p>
                     </div>
                 </form>
             </div>

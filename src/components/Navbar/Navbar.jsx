@@ -51,19 +51,19 @@ function Navbar() {
                             <div className='md:hidden'>
                               <HomeOutlinedIcon/>
                             </div>
-                            <a href="">Home</a>
+                            <Link to={"/home"}>Home</Link> 
                         </li>
                         <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>
                              <MailOutlineOutlinedIcon/>
                             </div>
-                            <a href="">Contact</a>
+                            <Link to={"/contact"}>Contact</Link> 
                         </li>
                         <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>
                              <InfoOutlinedIcon/>
                             </div>
-                            <a href="">About</a>
+                            <Link to={"/about"}>About</Link> 
                         </li>
                         <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
                             <div className='md:hidden'>

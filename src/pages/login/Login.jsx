@@ -1,6 +1,49 @@
+"use client"
+
+import { z } from "zod";
+import {useForm} from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import {Loader2} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+import { Input } from "@/components/ui/input"
+import { Link, useNavigate } from "react-router-dom";
 import sidebar_image from "../../assets/images/sidebar_image.jpg"
+import { axiosClient } from "../../api/axios/axios";
+
+
+const formSchema = z.object({
+    email: z.string().email().min(2).max(50),
+    password: z.string().min(8).max(30)
+  })
 
 function Login() {
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+          email: "test@example.com",
+          password: "password",
+        },
+    })
+    const onSubmit = async ({email,password})=>{
+        await axiosClient.get("sanctum/csrf-cookie");
+        await axiosClient.post("/api/login",{email,password}).then(res=>{
+            if(res.status){
+                console.log(res)
+            }
+        }).catch(err=>{
+            console.log(err);
+        })
+    }
     return (
         <div className="w-screen h-screen flex flex-col items-center sm:flex-row">
             <div className="hidden   sm:flex h-full sm:w-1/2">
@@ -11,15 +54,39 @@ function Login() {
                     <h1 className="text-3xl">Login to <span className="text-red-500">ShopGO</span></h1>
                     <p>Enter your details below</p>
                 </div>
-                <form className="flex flex-col  items-center gap-10 w-full py-20">
-                    <input type="email" placeholder="Email" className="p-2 rounded-md border sm:border-0 sm:border-b w-1/2 outline-none"/>
-                    <input type="password" placeholder="Password" className="p-2 rounded-md border sm:border-0 sm:border-b w-1/2 outline-none "/>
-                    <div className="flex flex-col w-full items-center gap-4">
-                        <button className="bg-red-400 text-white w-1/2  rounded-md p-2 hover:bg-red-200">Login</button>
-                        <a href="" className="text-red-500 hover:text-red-300">Forget Password?</a>
-                        <span>Dont have an Account <a href="" className="underline">Sign up</a></span>
-                    </div>
-                </form>
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                        <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input placeholder="email" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <FormField
+                        control={form.control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>Password</FormLabel>
+                            <FormControl>
+                                <Input placeholder="password" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                        />
+                        <Button type="submit" disabled={form.formState.isSubmitting}>
+                        {form.formState.isSubmitting && <Loader2 className={"mx-2 my-2 animate-spin"}/>}Login
+                        </Button>
+                    </form>
+                </Form>
             </div>
         </div>
     );

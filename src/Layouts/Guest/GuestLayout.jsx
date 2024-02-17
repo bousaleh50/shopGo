@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/footer/Footer";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/footer/Footer";
 
-function Root() {
+function GuestLayout() {
     return (
         <>
-         <Navbar/>
+          <Navbar/>
          <div className="md:p-20">
            <Outlet/>
          </div>
@@ -14,4 +14,4 @@ function Root() {
     );
 }
 
-export default Root;
+export default GuestLayout;
