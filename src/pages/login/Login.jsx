@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { Link, useNavigate } from "react-router-dom";
 import sidebar_image from "../../assets/images/sidebar_image.jpg"
 import { axiosClient } from "../../api/axios/axios";
+import { useContext, useEffect, useReducer } from "react";
+import { UserContext } from "../../context/UserContext/UserContext";
 
 
 const formSchema = z.object({
@@ -27,22 +29,34 @@ const formSchema = z.object({
   })
 
 function Login() {
+    const {dispatch,state} = useContext(UserContext);
+    const navigate = useNavigate()
     const form = useForm({
         resolver: zodResolver(formSchema),
         defaultValues: {
           email: "test@example.com",
           password: "password",
         },
-    })
+    });
+    
+    useEffect(()=>{
+        if(state.isAuthenticated){
+            navigate("/");
+        }
+    },[state.isAuthenticated])
+    
     const onSubmit = async ({email,password})=>{
         await axiosClient.get("sanctum/csrf-cookie");
         await axiosClient.post("/api/login",{email,password}).then(res=>{
-            if(res.status){
-                console.log(res)
+            if(res.status === 200){
+                dispatch({type:"LOGIN",payload:res.data});
+                navigate("/")
             }
-        }).catch(err=>{
-            console.log(err);
-        })
+        }).catch(({response})=>{
+            form.setError("email",{
+                message : response.data.errors.email.join()
+            })
+        });
     }
     return (
         <div className="w-screen h-screen flex flex-col items-center sm:flex-row">

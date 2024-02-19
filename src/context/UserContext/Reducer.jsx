@@ -1,10 +1,3 @@
-
-export  const initialState = {
-    user:null,
-    isAuthenticated:false,
-    token:null,
-}
-
 export const reducer = (state,action)=>{
     switch(action.type){
         case "LOGIN":
@@ -12,10 +5,9 @@ export const reducer = (state,action)=>{
             window.localStorage.setItem("AUTHENTICATED",true)
             return {...state,
               user:action.payload.user,
-              isAuthenticated:action.payload.isAuthenticated,
+              isAuthenticated:true,
               token:action.payload.token
             }
-            break
         case "LOGOUT":
             localStorage.clear();
             return {

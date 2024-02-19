@@ -7,18 +7,21 @@ import WishList from '../components/WishList/WishList.jsx';
 import Cart from '../pages/cart/Cart.jsx';
 import { createBrowserRouter } from 'react-router-dom';
 import GuestLayout from '../Layouts/Guest/GuestLayout.jsx';
+import UserLayout from '../Layouts/User/UserLayout.jsx';
+
+export const USER_LAYOUT = "/"
 
 export const router = createBrowserRouter ([
   {
     path:'/',
-    element:<GuestLayout/>,
+    element:<UserLayout/>,
     children:[
       {
         index:true,
         element:<Home/>
       },
       {
-        path:"/test",
+        path:"/whishlist",
         element:<WishList/>
       },
       {

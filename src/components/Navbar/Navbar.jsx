@@ -8,15 +8,15 @@ import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import SensorOccupiedOutlinedIcon from '@mui/icons-material/SensorOccupiedOutlined';
 import "./style.css";
-import { useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import Departments from '../departments/Departments';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext/UserContext';
+import { axiosClient } from '../../api/axios/axios';
 
 
 function Navbar() {
-   
     const menuRef=useRef(null);
-   
     const handleShowMenu=(status)=>{
         const menu=menuRef.current;
         if(status){
