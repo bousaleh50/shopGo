@@ -1,21 +1,21 @@
-
-import Navbar from "./components/Navbar/Navbar"
-import Footer from "./components/footer/Footer"
-import HeroSection from "./components/hero_section/HeroSection"
-import Home from "./pages/homePage/HomePage"
-import Register from "./pages/signup/Register"
+import {RouterProvider} from "react-router-dom";
+import { router } from "./routes";
+import { UserContext } from "./context/UserContext/UserContext";
+import { useReducer } from "react";
+import {reducer } from "./context/UserContext/Reducer";
 
 
 function App() {
-  
-
+  const [state,dispatch] = useReducer(reducer,{
+    user:{},
+    token:null,
+    isAuthenticated:'true'===window.localStorage.getItem("AUTHENTICATED"),
+  });
   return (
     <>
-      <div>
-         <Navbar/>
-         <Home/>
-         <Footer/>
-      </div>
+       <UserContext.Provider value={{state,dispatch}}>
+         <RouterProvider router={router}/>
+       </UserContext.Provider>
     </>
   )
 }

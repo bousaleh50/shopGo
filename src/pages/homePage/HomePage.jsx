@@ -6,6 +6,8 @@ import NewArrival from "../../components/newArrival/NewArrival";
 import Services from "../../components/services/Services";
 import TodayProducts from "../../components/todayProducts/TodayProduts";
 
+
+
 function Home() {
     return (
         <div className="mt-10 flex flex-col gap-10  md:mt-20">
