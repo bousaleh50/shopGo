@@ -1,33 +1,16 @@
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import SensorOccupiedOutlinedIcon from '@mui/icons-material/SensorOccupiedOutlined';
 import "./style.css";
-import { useContext, useEffect, useRef } from 'react';
-import Departments from '../departments/Departments';
+import {useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext/UserContext';
-import { axiosClient } from '../../api/axios/axios';
+import { Input } from "@/components/ui/input"
+import UserSideBar from '../UserSideBar/UserSideBar';
+import { UserAvatar } from './User/UserAvatar';
+import UserSubIcons from './User/UserSubIcons';
+
 
 
 function Navbar() {
-    const menuRef=useRef(null);
-    const handleShowMenu=(status)=>{
-        const menu=menuRef.current;
-        if(status){
-            menu.classList.remove("show-menu");
-            menu.classList.add("hidden");
-        }else{
-            menu.classList.add("show-menu");
-            menu.classList.remove("hidden");
-        }
-    }
-
+    const [isHide,setIsHide] = useState(true);
     return (
         <header className=" w-screen h-10 flex flex-col">
             <div className="hidden xl:flex gap-40 bg-black w-full ">
@@ -38,56 +21,32 @@ function Navbar() {
                     <option value="ar">Arabic</option>
                 </select>
             </div>
-            <nav className="w-screen p-4 flex flex-wrap gap-4  justify-evenly items-center border-b-2 sm:flex-nowrap sm:gap-0 " >
+            <nav className="w-screen p-4 flex flex-wrap gap-4  justify-evenly items-center border-b-2" >
+                <div className='ml-auto'>
+                     <MenuOutlinedIcon className='hover:text-red-500' onClick={()=>{setIsHide(!isHide)}}/>
+                </div>
                 <div className=''>
-                 <h1 className='text-3xl font-black'>Shop<span className='text-red-500'>Go</span></h1>
+                 <Link to={"/"}>
+                   <h1 className='text-3xl font-black'>Shop<span className='text-red-500'>Go</span></h1>
+                 </Link>
                 </div>
-                <div className='w-1/2 h-screen absolute right-0 bottom-0 hidden flex-col items-center gap-20 p-4 bg-white border md:border-none md:flex md:relative md:h-fit ' ref={menuRef}>
-                    <div className='mr-auto md:hidden'>
-                        <CloseOutlinedIcon className='text-3Xl' onClick={()=>handleShowMenu(true)}/>
-                    </div>
-                    <ul className='flex flex-col w-full md:flex-row md:gap-10 justify-end '>
-                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
-                            <div className='md:hidden'>
-                              <HomeOutlinedIcon/>
-                            </div>
-                            <Link to={"/home"}>Home</Link> 
-                        </li>
-                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
-                            <div className='md:hidden'>
-                             <MailOutlineOutlinedIcon/>
-                            </div>
-                            <Link to={"/contact"}>Contact</Link> 
-                        </li>
-                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
-                            <div className='md:hidden'>
-                             <InfoOutlinedIcon/>
-                            </div>
-                            <Link to={"/about"}>About</Link> 
-                        </li>
-                        <li className='border-b-2 py-4 flex gap-4 hover:text-red-500 md:border-none md:py-0'>
-                            <div className='md:hidden'>
-                             <SensorOccupiedOutlinedIcon className=''/>
-                            </div>
-                            <Link to="/register">Sign up</Link>
-                        </li>
-                    </ul>
+                <div className='flex justify-center flex-1'>
+                    <Input
+                        type="search"
+                        placeholder="Search..."
+                        className="hidden sm:block"
+                    />
                 </div>
-                <div className='w-2/5 m-2 hidden xl:block'>
-                  <form className=''>
-                     <div className='border flex rounded-md p-2  w-1/2'>
-                      <input type="search" className='hidden outline-none w-full md:inline ' placeholder='search'/>
-                      <SearchOutlinedIcon/>
-                     </div>
-                  </form>
+                <div className='ml-auto flex items-center gap-4'>
+                    <UserSubIcons className={"hidden sm:flex sm:gap-4"}/>
+                    <UserAvatar/>
                 </div>
-                <div className='ml-auto flex gap-10'>
-                    <Link to="/cart"><ShoppingCartOutlinedIcon className='hover:text-red-500'/></Link>
-                    <FavoriteBorderOutlinedIcon className='hover:text-red-500'/>
-                    <div className='ml-auto md:hidden'>
-                     <MenuOutlinedIcon className='hover:text-red-500' onClick={()=>handleShowMenu(false)}/>
-                    </div>
-                </div>
+                {
+                        !isHide&&
+                        <div className="w-1/2 absolute top-24 left-0 h-screen">
+                          <UserSideBar/>
+                        </div>
+                }
             </nav>
         </header>
     );

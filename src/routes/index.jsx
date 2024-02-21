@@ -9,11 +9,23 @@ import { createBrowserRouter } from 'react-router-dom';
 import GuestLayout from '../Layouts/Guest/GuestLayout.jsx';
 import UserLayout from '../Layouts/User/UserLayout.jsx';
 
-export const USER_LAYOUT = "/"
+export const USER_URL = "/"
 
 export const router = createBrowserRouter ([
   {
-    path:'/',
+    element:<Layout/>,
+    children:[
+      {
+        path:"/",
+        element:<Home/>
+      },
+      {
+        path:'/register',
+        element:<Register/>
+      },
+    ]
+  },
+  {
     element:<UserLayout/>,
     children:[
       {
@@ -31,12 +43,12 @@ export const router = createBrowserRouter ([
     ]
   },
   {
-    path:'/login',
-    element:<Login/>
-  },
-  {
-    path:'/register',
-    element:<Register/>
-  },
-  
-])
+    element:<GuestLayout/>,
+    children:[
+      {
+        path:'/login',
+        element:<Login/>
+      },
+    ]
+  }
+]);
