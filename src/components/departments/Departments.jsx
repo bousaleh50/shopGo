@@ -1,16 +1,18 @@
+import { Link } from "react-router-dom";
+
 function Departments() {
     return (
-        <div className="hidden lg:flex lg:justify-center lg:border-r-2">
-                <ul className="p-10 flex flex-col gap-4">
-                    <li><a href="">Women's Fashion</a></li>
-                    <li><a href="">Men's Fashion</a></li>
-                    <li><a href="">Electronics</a></li>
-                    <li><a href="">Home & Lifestyle</a></li>
-                    <li><a href="">Medicine</a></li>
-                    <li><a href="">Sports & Outdoor</a></li>
-                    <li><a href="">Baby's & Toys</a></li>
-                    <li><a href="">Groceries & Pets</a></li>
-                    <li><a href="">Health & Beauty</a></li>
+        <div className="">
+                <ul className="flex flex-col gap-4">
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Women's Fashion</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Men's Fashion</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Electronics</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Home & Lifestyle</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Medicine</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Sports & Outdoor</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Baby's & Toys</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Groceries & Pets</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Health & Beauty</Link></li>
                 </ul>
         </div>
     );

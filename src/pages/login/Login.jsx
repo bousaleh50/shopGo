@@ -21,6 +21,7 @@ import sidebar_image from "../../assets/images/sidebar_image.jpg"
 import { axiosClient } from "../../api/axios/axios";
 import { useContext, useEffect, useReducer } from "react";
 import { UserContext } from "../../context/UserContext/UserContext";
+import { USER_BASE_URL } from "../../routes/routes";
 
 
 const formSchema = z.object({
@@ -47,7 +48,7 @@ function Login() {
     
     const onSubmit = async ({email,password})=>{
         await axiosClient.get("sanctum/csrf-cookie");
-        await axiosClient.post("/api/login",{email,password}).then(res=>{
+        await axiosClient.post(`${USER_BASE_URL}/login`,{email,password}).then(res=>{
             if(res.status === 200){
                 dispatch({type:"LOGIN",payload:res.data});
                 navigate("/")
@@ -59,7 +60,7 @@ function Login() {
         });
     }
     return (
-        <div className="w-screen h-screen flex flex-col items-center sm:flex-row">
+        <div className="h-screen flex flex-col items-center sm:flex-row">
             <div className="hidden   sm:flex h-full sm:w-1/2">
                 <img src={sidebar_image} alt="" className="w-full"/>
             </div>

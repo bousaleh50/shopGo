@@ -3,29 +3,27 @@ import UserNav from "../../components/Navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext/UserContext";
-import { axiosClient } from "../../api/axios/axios";
 
-function UserLayout() {
-    const {state} = useContext(UserContext);
+
+function UserLayout({isHide}) {
+    const {state,dispatch} = useContext(UserContext);
     const navigate = useNavigate();
-    console.log(state);
+    
     useEffect(()=>{
-        if(state.isAuthenticated){
-            axiosClient.get("/api/user").then(({data})=>{
-                console.log(data);
-            }).catch(err=>{
-                console.log(err);
-            })
-        }else{
-            navigate("/login")
+        if(!state.isAuthenticated){
+            navigate("/login");
         }
     },[state.isAuthenticated])
     return (
         <>
             <UserNav/>
-            <div className="md:p-20">
-            <Outlet/>
-            </div>
+            <main className="md:p-20">
+                <div className="">
+                    <div className="">
+                        <Outlet/>
+                    </div>
+                </div>
+            </main>
             <Footer/>
         </>
     );
