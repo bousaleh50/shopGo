@@ -8,11 +8,11 @@ function UserSubIcons({className}) {
             <div className={className}>
                 <Link to="/cart" className='flex gap-4'>
                     <ShoppingCartOutlinedIcon className='hover:text-red-500'/>
-                    <span>Cart</span>
+                    <span className='sm:hidden'>Cart</span>
                 </Link>
                 <Link className='flex gap-4'>
                   <FavoriteBorderOutlinedIcon className='hover:text-red-500'/>
-                  <span>Favorite</span>
+                  <span className='sm:hidden'>Favorite</span>
                 </Link>
             </div>
         </>
