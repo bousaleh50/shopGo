@@ -3,6 +3,10 @@ import { router } from "./routes";
 import { UserContext } from "./context/UserContext/UserContext";
 import { useReducer } from "react";
 import {reducer } from "./context/UserContext/Reducer";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { api } from "./api/axios/cartApi";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 
 function App() {
@@ -13,9 +17,9 @@ function App() {
   });
   return (
     <>
-       <UserContext.Provider value={{state,dispatch}}>
-         <RouterProvider router={router}/>
-       </UserContext.Provider>
+        <Provider store={store}>
+           <RouterProvider router={router}/>
+        </Provider>
     </>
   )
 }

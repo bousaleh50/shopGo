@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Link} from "react-router-dom"
 import ProductCard from "./ProductCard";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -15,6 +15,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { axiosClient } from "../../api/axios/axios";
 
 function ProductsCardsComponetns({type}) {
     const [products,setProducts]=useState([
@@ -26,8 +27,8 @@ function ProductsCardsComponetns({type}) {
         <Carousel className="w-full flex ">
         <CarouselContent>
       {
-        products.map((p,i)=><>
-        <CarouselItem className="basis-1/3">
+        products.map((p,i)=>(
+        <CarouselItem className="basis-1/3" key={i}>
           <div className="p-1">
             <Card className="">
               <CardHeader className="">
@@ -59,7 +60,7 @@ function ProductsCardsComponetns({type}) {
             </Card>
           </div>
         </CarouselItem>
-    </>)
+        ))
       }</CarouselContent>
       <CarouselPrevious className="hidden md:flex bg-red-500 text-white"/>
       <CarouselNext className="hidden md:flex bg-red-500 text-white"/>
