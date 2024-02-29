@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
-import {Link} from "react-router-dom"
-import ProductCard from "./ProductCard";
+import {useState } from "react";
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import "./style.css";
-import WishListProductCard from "./WishListProductCard";
 import { Card, CardContent } from "@/components/ui/card"
 import GamePad from "../../assets/images/gamePad.png"
 import {
@@ -15,7 +12,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
-import { axiosClient } from "../../api/axios/axios";
 
 function ProductsCardsComponetns({type}) {
     const [products,setProducts]=useState([
