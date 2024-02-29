@@ -1,21 +1,18 @@
 import {RouterProvider} from "react-router-dom";
 import { router } from "./routes";
-import { UserContext } from "./context/UserContext/UserContext";
-import { useReducer } from "react";
-import {reducer } from "./context/UserContext/Reducer";
+
+import {Provider} from "react-redux"
+import { store } from "./store";
 
 
 function App() {
-  const [state,dispatch] = useReducer(reducer,{
-    user:{},
-    token:null,
-    isAuthenticated:'true'===window.localStorage.getItem("AUTHENTICATED"),
-  });
   return (
     <>
-       <UserContext.Provider value={{state,dispatch}}>
-         <RouterProvider router={router}/>
-       </UserContext.Provider>
+       <Provider store={store}>
+        {/* <UserContext.Provider value={{state,dispatch}}> */}
+          <RouterProvider router={router}/>
+        { /* </UserContext.Provider> */}
+       </Provider>
     </>
   )
 }

@@ -7,7 +7,7 @@ import SensorOccupiedOutlinedIcon from '@mui/icons-material/SensorOccupiedOutlin
 import { Link } from "react-router-dom";
 
 function UserNavMenu() {
-    const {state} = useContext(UserContext);
+    // const {state} = useContext(UserContext);
     return (
         <>
          <ul className='flex flex-col w-full md:flex-row md:gap-10 justify-end '>

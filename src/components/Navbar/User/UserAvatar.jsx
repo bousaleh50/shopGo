@@ -11,22 +11,18 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useContext } from "react";
-import { UserContext } from "../../../context/UserContext/UserContext";
-import { axiosClient } from "../../../api/axios/axios";
-import { USER_BASE_URL } from "../../../routes/routes";
 import UserSubIcons from "./UserSubIcons";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout } from "../../../api/axios/User/UserActions";
+import { useNavigate } from "react-router-dom";
 
   export function UserAvatar() {
-    const {state,dispatch} = useContext(UserContext);
-    const handleLogout = async ()=>{
-      await axiosClient.post(`${USER_BASE_URL}/logout`).then(res=>{
-        console.log(res)
-        dispatch({type:"LOGOUT"});
-        console.log("logout successfully");
-      }).catch(err=>{
-        console.log(err);
-      })
+    const user = useSelector(state=>state.user);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleLogout = ()=>{
+      dispatch(userLogout());
+      navigate("/login");
     }
     return (
       <>
@@ -38,7 +34,7 @@ import UserSubIcons from "./UserSubIcons";
                 </Avatar>
             </DropdownMenuTrigger>
             {
-              state.isAuthenticated&&
+              user.isAuthenticated&&
               <DropdownMenuContent>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />

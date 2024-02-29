@@ -3,17 +3,18 @@ import UserNav from "../../components/Navbar/Navbar";
 import Footer from "../../components/footer/Footer";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext/UserContext";
+import { useSelector } from "react-redux";
 
 
 function UserLayout({isHide}) {
-    const {state,dispatch} = useContext(UserContext);
+    const user = useSelector(state=>state.user);
     const navigate = useNavigate();
     
     useEffect(()=>{
-        if(!state.isAuthenticated){
+        if(!user.isAuthenticated){
             navigate("/login");
         }
-    },[state.isAuthenticated])
+    },[user.isAuthenticated])
     return (
         <>
             <UserNav/>

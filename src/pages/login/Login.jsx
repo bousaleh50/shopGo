@@ -22,6 +22,8 @@ import { axiosClient } from "../../api/axios/axios";
 import { useContext, useEffect, useReducer } from "react";
 import { UserContext } from "../../context/UserContext/UserContext";
 import { USER_BASE_URL } from "../../routes/routes";
+import { userLogin } from "../../api/axios/User/UserActions";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const formSchema = z.object({
@@ -30,7 +32,9 @@ const formSchema = z.object({
   })
 
 function Login() {
-    const {dispatch,state} = useContext(UserContext);
+    //const {dispatch,state} = useContext(UserContext);
+    const user = useSelector(state=>state.user)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -41,23 +45,17 @@ function Login() {
     });
     
     useEffect(()=>{
-        if(state.isAuthenticated){
+        if(user.isAuthenticated){
             navigate("/");
         }
-    },[state.isAuthenticated])
+    },[user.isAuthenticated])
     
     const onSubmit = async ({email,password})=>{
-        await axiosClient.get("sanctum/csrf-cookie");
-        await axiosClient.post(`${USER_BASE_URL}/login`,{email,password}).then(res=>{
-            if(res.status === 200){
-                dispatch({type:"LOGIN",payload:res.data});
-                navigate("/")
-            }
-        }).catch(({response})=>{
-            form.setError("email",{
-                message : response.data.errors.email.join()
-            })
-        });
+      const response = await dispatch(userLogin({email,password}));
+      if(response){
+        console.log(response)
+        form.setError("email",{message : response})
+      }
     }
     return (
         <div className="h-screen flex flex-col items-center sm:flex-row">
