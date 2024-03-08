@@ -1,12 +1,21 @@
 import { useState } from "react";
 import CartItem from "../../components/cartItem/CartItem";
 import { Form, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useCartProductsQuery } from "../../api/axios/app/appApi";
 
 function Cart() {
-    const [product,setProduct]=useState([
-        1,2,3,4,5,6
-    ]);
+    const user  =  useSelector(state=>state.user.user)
+    const {data,isLoading,isSuccess,isError} = useCartProductsQuery()
+    console.log("test",data)
+    const dispatch = useDispatch()
 
+    if(isLoading){
+      return "...loding"
+    }
+    if(isError){
+      return "something went wrong"
+    }
     return (
         <div className="w-full m-auto mt-20">
             <Form action="">
@@ -21,7 +30,7 @@ function Cart() {
                     </thead>
                     <tbody>
                         {
-                            product.map((p,i)=><CartItem key={i}/>)
+                            data.cart.map((p,i)=><CartItem key={i} item={p}/>)
                         }
                     </tbody>
                 </table>

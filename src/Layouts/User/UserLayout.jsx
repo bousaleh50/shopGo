@@ -1,20 +1,21 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import UserNav from "../../components/Navbar/Navbar";
 import Footer from "../../components/footer/Footer";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../context/UserContext/UserContext";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 
-function UserLayout({isHide}) {
-    const user = useSelector(state=>state.user);
+
+function UserLayout() {
+    const currentUser = useSelector(state=>state.user)
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     useEffect(()=>{
-        if(!user.isAuthenticated){
+        if(!currentUser.isAuthenticated){
             navigate("/login");
         }
-    },[user.isAuthenticated])
+    })
     return (
         <>
             <UserNav/>
