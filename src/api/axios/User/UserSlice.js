@@ -24,7 +24,6 @@ export const userSlice = createSlice({
             state.error = action.payload
         },
         setUser(state,action){
-            console.log("this is the fucking payload ",action.payload.token)
             state.user = action.payload.user
             state.token = action.payload.token
         }

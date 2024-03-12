@@ -10,7 +10,7 @@ function UserSubIcons({className}) {
                     <ShoppingCartOutlinedIcon className='hover:text-red-500'/>
                     <span className='sm:hidden'>Cart</span>
                 </Link>
-                <Link className='flex gap-4'>
+                <Link to="/whishlist" className='flex gap-4'>
                   <FavoriteBorderOutlinedIcon className='hover:text-red-500'/>
                   <span className='sm:hidden'>Favorite</span>
                 </Link>

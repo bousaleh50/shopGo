@@ -7,8 +7,8 @@ export const userApi = createApi({
     baseQuery:fetchBaseQuery({
         baseUrl : `${BASE_URL}/api`,
     }),
-    endpoints:build=>({
-        UserLogin:build.query({
+    endpoints:builder=>({
+        UserLogin:builder.query({
             async queryFn(){
                 const user = await axiosClient.post(`${USER_BASE_URL}/login`,{email,password})
                 return user

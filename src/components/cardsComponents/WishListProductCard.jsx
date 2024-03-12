@@ -1,9 +1,33 @@
 import blackIphone from "../../assets/images/Gamepad.png";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 import "./style.css";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { axiosClient } from "../../api/axios/axios";
+import { addTocartAction } from "../../api/axios/cart/cartActions";
+import { removeFromWhishlistAction } from "../../api/wishList/wishlistActions";
 
-function WishListProductCard() {
+function WishListProductCard({item}) {
+    const dispatch = useDispatch();
+    const [product,setProduct] = useState(null);
+
+    useEffect(()=>{
+        const getProduct = async ()=>{
+            const response = await axiosClient.get(`/api/product/${item.product_id}`);
+            setProduct(response.data.product)
+        }
+
+        getProduct();
+    },[])
+    if(!product){
+        return "loading...."
+    }
+    const handleAddToBag = (id)=>{
+        dispatch(addTocartAction(id));
+    }
+    const handleDeleteItem = (id)=>{
+       dispatch(removeFromWhishlistAction(id));
+    }
     return (
         <div className="card flex flex-col border-2  shrink-0 w-1/2 h-2/5  md:w-2/12 md:h-2/12">
             {/** card Header */}
@@ -13,23 +37,23 @@ function WishListProductCard() {
                     <p className="bg-red-500 text-white p-2 rounded">-40%</p>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <DeleteForeverOutlined className=""/>
+                        <DeleteForeverOutlined className="hover:text-red-500" onClick={()=>handleDeleteItem(item.id)}/>
                     </div>
                 </div>
                 <div className="flex">
                     <img src={blackIphone} alt="" className="flex-shrink grow-1"/>
                 </div>
                 <div className="flex-1 bg-black text-white p-2 text-center">
-                    <button >Add To Bag</button>
+                    <button onClick={()=>handleAddToBag(id)}>Add To Bag</button>
                 </div>
             </div>
             {/**card Footer */}
             <div className="">
                 <div className="text-xl uppercase">
-                    <p>Havit hv-g92 Gamepad</p>
+                    <p>{product.description}</p>
                 </div>
                 <div className="flex gap-4">
-                    <p className="text-red-500">$120</p>
+                    <p className="text-red-500">{product.price}</p>
                     <p className="text-gray-400 line-through">$120</p>
                 </div>
                 <div>

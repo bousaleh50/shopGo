@@ -1,11 +1,14 @@
-import { useState } from "react";
-
 import WishListProductCard from "../cardsComponents/WishListProductCard";
+import {useWhishlistProductsQuery } from "../../api/appApi/appApi";
+
+
 
 function WishList() {
-    const [products,setProducts]=useState([
-        1,2,3,4,5,6,7,8,9
-    ])
+    const {data,isError,isLoading} = useWhishlistProductsQuery()
+
+    if(isLoading){
+        return "loading....";
+    }
     
     return (
         <div className="md:flex md:flex-col gap-4">
@@ -15,7 +18,7 @@ function WishList() {
             </div>
             <div className="flex gap-4 overflow-x-scroll cards">
                 {
-                    products.map((p,i)=><WishListProductCard key={i}/>)
+                    data.products.map((p,i)=><WishListProductCard key={i} item={p}/>)
                 }
             </div>
         </div>

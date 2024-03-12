@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateCartAction } from "../../api/axios/app/cartActions";
+import { updateCartAction } from "../../api/axios/cart/cartActions";
 import { axiosClient } from "../../api/axios/axios";
-import { useGetProductQuery } from "../../api/axios/app/appApi";
+import { useGetProductQuery } from "../../api/appApi/appApi";
 
 function CartItem({item}) {
    // const {data:product,isError,isLoading} = useGetProductQuery({id:item.product_id});
     const [product,setProduct] = useState(null);
+    const [isChanged,setIsChanged] = useState(false);
     const [quantity,setQuantity] = useState(item.quantity);
     const dispatch = useDispatch();
 
     useEffect(()=>{
         const getProduct = async ()=>{
             const response = await axiosClient.get(`/api/product/${item.product_id}`);
-            console.log("this is product",response);
             setProduct(response.data.product)
         }
 
@@ -23,7 +23,7 @@ function CartItem({item}) {
     const handleChangeQuantity = (e)=>{
         const {value} = e.target;
         setQuantity(value)
-        dispatch(updateCartAction({id,value}))
+        dispatch(updateCartAction({id:item.product_id,value}))
     }
 
     if(!product){
@@ -42,7 +42,7 @@ function CartItem({item}) {
                 <input type="number" className="border outline-none text-center" value={quantity}  onChange={handleChangeQuantity}  min={1}/>
             </td>
             <td>
-                <span>{product.price*quantity}</span>
+                <span>{product.price*quantity}DH</span>
             </td>
         </tr>
     );

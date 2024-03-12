@@ -1,4 +1,5 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import { USER_BASE_URL } from "../../routes/routes";
 
 
 
@@ -9,7 +10,6 @@ export const appApi = createApi({
             // Include withCredentials in the headers
              // Assuming you have user info in your Redux store
              const {user} = getState();
-             console.log("this is the fucking user",user.token)
             if (user.token) {
               headers.set('Authorization', `Bearer ${user.token}`);
             }
@@ -20,6 +20,12 @@ export const appApi = createApi({
           },
     }),
     endpoints:builder =>({
+        UserLogin:builder.query({
+            async queryFn(){
+                const user = await axiosClient.post(`${USER_BASE_URL}/login`,{email,password})
+                return user
+            }
+        }),
         CartProducts:builder.query({
             query:()=>{
                 return {
@@ -28,20 +34,23 @@ export const appApi = createApi({
                 }
             }
         }),
-        UserLogin:builder.query({
-            async queryFn(){
-                const user = await axiosClient.post(`${USER_BASE_URL}/login`,{email,password})
-                return user
-            }
-        }),
         getProduct:builder.query({
             query:(id)=> `product/${id}`,
-        })
+        }),
+        WhishlistProducts:builder.query({
+            query:()=>{
+                return {
+                    url : "whishlist",
+                    method:"GET",
+                }
+            }
+        }),
+        
     })
 })
 
 export const {useCartProductsQuery,
-    useUserLoginQuery,
-    useUserLogoutQuery,
     useGetProductQuery,
+    useUserLogin,
+    useWhishlistProductsQuery
 } = appApi

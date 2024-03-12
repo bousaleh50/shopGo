@@ -11,7 +11,6 @@ export const addTocartAction = (payload)=>{
             }).catch(err=>{
                 return err;
             })
-            console.log(response);
             dispatch(cartActions.addToCart(payload))
         }
         addToCart();

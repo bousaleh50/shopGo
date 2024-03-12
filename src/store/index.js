@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit"
 import { userSlice } from "../api/axios/User/UserSlice"
-import { appApi } from "../api/axios/app/appApi"
-import { cartSlice } from "../api/axios/app/cartSlice"
+import { appApi } from "../api/appApi/appApi"
+import { cartSlice } from "../api/axios/cart/cartSlice"
 
 export const store = configureStore({
     reducer:{

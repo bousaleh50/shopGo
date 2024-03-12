@@ -12,9 +12,10 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
-import { useCartProductsQuery } from "../../api/axios/app/appApi";
+import { useCartProductsQuery } from "../../api/appApi/appApi";
 import { useDispatch, useSelector } from "react-redux";
-import { addTocartAction } from "../../api/axios/app/cartActions";
+import { addTocartAction } from "../../api/axios/cart/cartActions";
+import { addToWishAction } from "../../api/wishList/wishlistActions";
 
 function ProductsCardsComponetns() {
   const user  =  useSelector(state=>state.user.user)
@@ -68,6 +69,10 @@ function ProductsCardsComponetns() {
     dispatch(addTocartAction(product))
   }
 
+  const handleAddToWishList = (product)=>{
+    dispatch(addToWishAction(product));
+  }
+
     return (
      <div className="">
         <Carousel className="w-full flex ">
@@ -82,8 +87,8 @@ function ProductsCardsComponetns() {
                   <span className="bg-red-500 text-white p-2 rounded">-50%</span>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <VisibilityOutlinedIcon/>
-                  <FavoriteBorderOutlinedIcon/>
+                  <VisibilityOutlinedIcon />
+                  <FavoriteBorderOutlinedIcon onClick={()=>handleAddToWishList(p)}/>
                 </div>
               </CardHeader>
               <CardContent className="flex flex-col flex-1 aspect-square items-center justify-center  bg-gray-400">
