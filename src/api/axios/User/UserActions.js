@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { USER_BASE_URL } from "../../../routes/routes";
 import { axiosClient } from "../axios";
-import { userACtions } from "./UserSlice";
+import { userActions } from "./UserSlice";
 
 
 export const userLogin = ({email,password})=>{
@@ -9,9 +9,13 @@ export const userLogin = ({email,password})=>{
         const login = async()=>{
             await axiosClient.get("sanctum/csrf-cookie");
             const response = await axiosClient.post(`${USER_BASE_URL}/login`,{email,password}).then(res=>{
-                dispatch(userACtions.login(res.data));
+                dispatch(userActions.login(res.data));
+                window.localStorage.setItem("b_user",JSON.stringify(res.data.user));
+                window.localStorage.setItem("tk",res.data.token);
+                window.localStorage.setItem("AUTHENTICATED",true);
+                return res;
             }).catch(({response})=>{
-                dispatch(userACtions.setError(response.data.errors.email));
+                dispatch(userActions.setError(response.data.errors.email));
                 return response.data.errors.email;
             })
             return response;
@@ -23,10 +27,21 @@ export const userLogin = ({email,password})=>{
 export const userLogout = ()=>{
     return async (dispatch)=>{
         const logout = async ()=>{
-            //await axiosClient.post(`${USER_BASE_URL}/logout`)
+            await axiosClient.post(`${USER_BASE_URL}/logout`)
             // the bug of delay 
-            dispatch(userACtions.logout())
+            dispatch(userActions.logout())
+            localStorage.clear();
         }
         logout();
     }
 }
+
+// export const setUser = ()=>{
+//     return async (dispatch)=>{
+//         const getUser = async ()=>{
+//             dispatch(userActions.setUser({user,token}));
+//         }
+//         getUser();
+//     }
+// }
+

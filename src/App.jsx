@@ -1,8 +1,9 @@
 import {RouterProvider} from "react-router-dom";
 import { router } from "./routes";
 
-import {Provider} from "react-redux"
+import {Provider, useSelector} from "react-redux"
 import { store } from "./store";
+import { useEffect } from "react";
 
 
 function App() {

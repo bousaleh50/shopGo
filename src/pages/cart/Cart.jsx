@@ -1,11 +1,23 @@
 import { useState } from "react";
 import CartItem from "../../components/cartItem/CartItem";
 import { Form, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useCartProductsQuery } from "../../api/appApi/appApi";
+import { cartActions } from "../../api/axios/cart/cartSlice";
 
 function Cart() {
-    const [product,setProduct]=useState([
-        1,2,3,4,5,6
-    ]);
+    const user  =  useSelector(state=>state.user.user)
+    const {data,isLoading,isSuccess,isError} = useCartProductsQuery()
+    const dispatch = useDispatch()
+
+    if(isLoading){
+      return "...loding"
+    }
+    if(isError){
+      return "something went wrong"
+    }
+
+    
 
     return (
         <div className="w-full m-auto mt-20">
@@ -21,13 +33,13 @@ function Cart() {
                     </thead>
                     <tbody>
                         {
-                            product.map((p,i)=><CartItem key={i}/>)
+                            data.cart.map((p,i)=><CartItem key={i} item={p}/>)
                         }
                     </tbody>
                 </table>
                 <div className="mt-4 flex justify-between">
                 <Link to="/" className="border p-4 text-center">Return To Shop</Link>
-                    <button className="border p-4 text-center">Update The Cart</button>
+                    <button className="border p-4 text-center" onClick={null}>Update The Cart</button>
                 </div>
             </Form>
         </div>
