@@ -9,17 +9,7 @@ import { removeFromWhishlistAction } from "../../api/wishList/wishlistActions";
 
 function WishListProductCard({item}) {
     const dispatch = useDispatch();
-    const [product,setProduct] = useState(null);
-
-    useEffect(()=>{
-        const getProduct = async ()=>{
-            const response = await axiosClient.get(`/api/product/${item.product_id}`);
-            setProduct(response.data.product)
-        }
-
-        getProduct();
-    },[])
-    if(!product){
+    if(!item){
         return "loading...."
     }
     const handleAddToBag = (id)=>{
@@ -50,10 +40,10 @@ function WishListProductCard({item}) {
             {/**card Footer */}
             <div className="">
                 <div className="text-xl uppercase">
-                    <p>{product.description}</p>
+                    <p>{item.description}</p>
                 </div>
                 <div className="flex gap-4">
-                    <p className="text-red-500">{product.price}</p>
+                    <p className="text-red-500">{item.price}</p>
                     <p className="text-gray-400 line-through">$120</p>
                 </div>
                 <div>

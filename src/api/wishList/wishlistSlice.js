@@ -7,17 +7,16 @@ export const wishlistSlice = createSlice({
     },
     reducers:{
         addToWishList : (state,action)=>{
-            state.items.push({
-                id:action.payload.id,
-                price:action.payload.price,
-                quantity:1,
-                totalPrice:action.payload.price,
-                name:action.payload.name
-            });
+            const existItem = state.items.find(p=>p.id === Number(action.payload.id))
+            if(!existItem){
+                state.items = [...state.items,action.payload]
+            }
         },
         removeFromWhishlist : (state,action)=>{
-            const item = action.payload;
-            state.items.filter(p=>p.id === Number(item.id));
+            state.items = state.items.filter(p=>p.id !== Number(action.payload));
+        },
+        loadData:(state,action)=>{
+            state.items = action.payload
         }
     }
 });

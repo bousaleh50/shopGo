@@ -1,15 +1,25 @@
 import WishListProductCard from "../cardsComponents/WishListProductCard";
 import {useWhishlistProductsQuery } from "../../api/appApi/appApi";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {loadDataToWhishlistAction } from "../../api/wishList/wishlistActions";
 
 
 
 function WishList() {
-    const {data,isError,isLoading} = useWhishlistProductsQuery()
+    const {data,isError,isSuccess,isLoading} = useWhishlistProductsQuery();
+    const products = useSelector(state=>state.whishlist.items);
+    const dispatch = useDispatch();
+    // useEffect(()=>{
+    //     if(isSuccess){
+    //         dispatch(loadDataToWhishlistAction(data.products))
+    //     }
+    // },[data])
 
     if(isLoading){
         return "loading....";
     }
-    
+
     return (
         <div className="md:flex md:flex-col gap-4">
             <div className="md:flex md:justify-between md:items-center">
@@ -18,7 +28,7 @@ function WishList() {
             </div>
             <div className="flex gap-4 overflow-x-scroll cards">
                 {
-                    data.products.map((p,i)=><WishListProductCard key={i} item={p}/>)
+                    products.map((p,i)=><WishListProductCard key={i} item={p}/>)
                 }
             </div>
         </div>

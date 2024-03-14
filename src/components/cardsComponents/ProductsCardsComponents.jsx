@@ -12,65 +12,26 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
-import { useCartProductsQuery } from "../../api/appApi/appApi";
+import { useCartProductsQuery, useGetProductsQuery } from "../../api/appApi/appApi";
 import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction } from "../../api/axios/cart/cartActions";
 import { addToWishAction } from "../../api/wishList/wishlistActions";
 
 function ProductsCardsComponetns() {
   const user  =  useSelector(state=>state.user.user)
-  const {data,isLoading,isSuccess,isError} = useCartProductsQuery()
   const dispatch = useDispatch()
-  const products = [
-    {
-      id: 1,
-      name: "MacBook",
-      imgURL:
-        "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      price: 25,
-    },
-    {
-      id: 2,
-      name: "Lenovo Yoga",
-      imgURL:
-        "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      price: 25,
-    },
-    {
-      id: 3,
-      name: "Dell lattitude",
-      imgURL:
-        "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      price: 25,
-    },
-    {
-      id: 4,
-      name: "HP Pavillion",
-      imgURL:
-        "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      price: 25,
-    },
-    {
-      id: 5,
-      name: "Acer Aspire",
-      imgURL:
-        "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8bGFwdG9wfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
-      price: 25,
-    },
-  ];
-  if(isLoading){
-    return "...loding"
-  }
-  if(isError){
-    return "something went wrong"
-  }
-
+  const {data,isLoading,isSuccess} = useGetProductsQuery();
+  
   const handleAddToCart = (product)=>{
-    dispatch(addTocartAction(product))
+     dispatch(addTocartAction(product))
   }
 
   const handleAddToWishList = (product)=>{
     dispatch(addToWishAction(product));
+  }
+
+  if(isLoading){
+    return "...loading"
   }
 
     return (
@@ -78,7 +39,7 @@ function ProductsCardsComponetns() {
         <Carousel className="w-full flex ">
         <CarouselContent>
       {
-        products.map((p,i)=>(
+        data.products.map((p,i)=>(
         <CarouselItem className="basis-1/3" key={i}>
           <div className="p-1">
             <Card className="">
@@ -87,8 +48,8 @@ function ProductsCardsComponetns() {
                   <span className="bg-red-500 text-white p-2 rounded">-50%</span>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <VisibilityOutlinedIcon />
-                  <FavoriteBorderOutlinedIcon onClick={()=>handleAddToWishList(p)}/>
+                  <VisibilityOutlinedIcon className="hover:text-red-500"/>
+                  <FavoriteBorderOutlinedIcon className="hover:text-red-500" onClick={()=>handleAddToWishList(p)}/>
                 </div>
               </CardHeader>
               <CardContent className="flex flex-col flex-1 aspect-square items-center justify-center  bg-gray-400">
@@ -101,11 +62,11 @@ function ProductsCardsComponetns() {
               </CardContent>
               <CardFooter className="flex-col">
                  <CardTitle>
-                   <span>AK-900 Wired Keyboard</span>
+                   <span>{p.description}</span>
                  </CardTitle>
                  <CardDescription className="flex gap-4">
-                  <span>$960</span>
-                  <span>$1160</span>
+                  <span>{p.price}DH</span>
+                  <span className="line-through">1160DH</span>
                  </CardDescription>
               </CardFooter>
             </Card>

@@ -37,6 +37,14 @@ export const appApi = createApi({
         getProduct:builder.query({
             query:(id)=> `product/${id}`,
         }),
+        getProducts:builder.query({
+            query:()=>{
+                return{
+                    url:"products",
+                    method:"GET"
+                }
+            }
+        }),
         WhishlistProducts:builder.query({
             query:()=>{
                 return {
@@ -52,5 +60,6 @@ export const appApi = createApi({
 export const {useCartProductsQuery,
     useGetProductQuery,
     useUserLogin,
-    useWhishlistProductsQuery
+    useWhishlistProductsQuery,
+    useGetProductsQuery,
 } = appApi
