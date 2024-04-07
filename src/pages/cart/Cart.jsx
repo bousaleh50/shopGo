@@ -1,20 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartItem from "../../components/cartItem/CartItem";
 import { Form, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCartProductsQuery } from "../../api/appApi/appApi";
 import { cartActions } from "../../api/axios/cart/cartSlice";
+import { loadCartDataAction } from "../../api/axios/cart/cartActions";
 
 function Cart() {
     const user  =  useSelector(state=>state.user.user)
+    const products = useSelector(state=>state.cart.itemsList);
     const {data,isLoading,isSuccess,isError} = useCartProductsQuery()
     const dispatch = useDispatch()
+
+    useEffect(()=>{
+        dispatch(loadCartDataAction());
+    },[data])
 
     if(isLoading){
       return "...loding"
     }
     if(isError){
       return "something went wrong"
+    }
+
+    if(products.length == 0){
+        return <div>
+            <h1>Your Packet is currently Empty please add some of products you like to buy</h1>
+        </div>
     }
 
     
@@ -33,7 +45,7 @@ function Cart() {
                     </thead>
                     <tbody>
                         {
-                            data.cart.map((p,i)=><CartItem key={i} item={p}/>)
+                            products.map((p,i)=><CartItem key={i} item={p}/>)
                         }
                     </tbody>
                 </table>

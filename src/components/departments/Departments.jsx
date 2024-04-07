@@ -4,15 +4,15 @@ function Departments() {
     return (
         <div className="">
                 <ul className="flex flex-col gap-4">
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Women's Fashion</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Men's Fashion</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Electronics</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Home & Lifestyle</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Medicine</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Sports & Outdoor</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Baby's & Toys</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Groceries & Pets</Link></li>
-                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link href="">Health & Beauty</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to={`/products/categorie/1`}>Women's Fashion</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Men's Fashion</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Electronics</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Home & Lifestyle</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Medicine</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Sports & Outdoor</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Baby's & Toys</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Groceries & Pets</Link></li>
+                    <li className="w-full p-4 hover:bg-red-500 hover:text-white"><Link to="">Health & Beauty</Link></li>
                 </ul>
         </div>
     );

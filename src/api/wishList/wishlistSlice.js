@@ -16,7 +16,7 @@ export const wishlistSlice = createSlice({
             state.items = state.items.filter(p=>p.id !== Number(action.payload));
         },
         loadData:(state,action)=>{
-            state.items = action.payload
+            state.items = [...action.payload]
         }
     }
 });

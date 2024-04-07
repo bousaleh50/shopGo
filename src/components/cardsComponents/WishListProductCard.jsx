@@ -34,7 +34,7 @@ function WishListProductCard({item}) {
                     <img src={blackIphone} alt="" className="flex-shrink grow-1"/>
                 </div>
                 <div className="flex-1 bg-black text-white p-2 text-center">
-                    <button onClick={()=>handleAddToBag(id)}>Add To Bag</button>
+                    <button onClick={()=>handleAddToBag(item.id)}>Add To Bag</button>
                 </div>
             </div>
             {/**card Footer */}

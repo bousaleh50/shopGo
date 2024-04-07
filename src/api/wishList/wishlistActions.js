@@ -26,10 +26,11 @@ export const removeFromWhishlistAction  = (payload)=>{
     }
 }
 
-export const loadDataToWhishlistAction = (payload)=>{
+export const loadDataToWhishlistAction = ()=>{
     return async (dispatch)=>{
         const setData = async ()=>{
-            await dispatch(whishlistActions.loadData(payload))
+            const res = await axiosClient.get("/api/whishlist");
+            await dispatch(whishlistActions.loadData(res.data.products))
         }
         await setData();
     }

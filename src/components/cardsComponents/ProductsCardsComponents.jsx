@@ -16,6 +16,8 @@ import { useCartProductsQuery, useGetProductsQuery } from "../../api/appApi/appA
 import { useDispatch, useSelector } from "react-redux";
 import { addTocartAction } from "../../api/axios/cart/cartActions";
 import { addToWishAction } from "../../api/wishList/wishlistActions";
+import ProductCartLoader from "../Skeleton/ContentLoader";
+import { Link } from "react-router-dom";
 
 function ProductsCardsComponetns() {
   const user  =  useSelector(state=>state.user.user)
@@ -23,7 +25,7 @@ function ProductsCardsComponetns() {
   const {data,isLoading,isSuccess} = useGetProductsQuery();
   
   const handleAddToCart = (product)=>{
-     dispatch(addTocartAction(product))
+     dispatch(addTocartAction({product}))
   }
 
   const handleAddToWishList = (product)=>{
@@ -31,7 +33,14 @@ function ProductsCardsComponetns() {
   }
 
   if(isLoading){
-    return "...loading"
+    return (
+      <div className="flex gap-4">
+      <ProductCartLoader/>
+      <ProductCartLoader/>
+      <ProductCartLoader/>
+      <ProductCartLoader/>
+      </div>
+    )
   }
 
     return (
@@ -48,13 +57,15 @@ function ProductsCardsComponetns() {
                   <span className="bg-red-500 text-white p-2 rounded">-50%</span>
                 </div>
                 <div className="flex flex-col gap-4">
-                  <VisibilityOutlinedIcon className="hover:text-red-500"/>
-                  <FavoriteBorderOutlinedIcon className="hover:text-red-500" onClick={()=>handleAddToWishList(p)}/>
+                  <Link to={`/product/${p.id}`}>
+                    <VisibilityOutlinedIcon className="hover:text-red-500"/>
+                  </Link>
+                  <FavoriteBorderOutlinedIcon className="hover:text-red-500 cursor-pointer" onClick={()=>handleAddToWishList(p)}/>
                 </div>
               </CardHeader>
               <CardContent className="flex flex-col flex-1 aspect-square items-center justify-center  bg-gray-400">
                 <div>
-                 <img src={GamePad} alt="" className=""/>
+                 <img src={GamePad} alt="" className="hover:scale-125"/>
                 </div>
                 <div className="bg-black text-white w-full text-center p-4 hover:bg-red-500 ">
                   <button className="w-full" onClick={()=>handleAddToCart(p)}>Add TO Cart</button>

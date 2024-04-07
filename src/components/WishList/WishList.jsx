@@ -10,11 +10,14 @@ function WishList() {
     const {data,isError,isSuccess,isLoading} = useWhishlistProductsQuery();
     const products = useSelector(state=>state.whishlist.items);
     const dispatch = useDispatch();
-    // useEffect(()=>{
-    //     if(isSuccess){
-    //         dispatch(loadDataToWhishlistAction(data.products))
-    //     }
-    // },[data])
+   
+    useEffect(()=>{
+        dispatch(loadDataToWhishlistAction());
+    },[data])
+
+    if(products.length == 0){
+        return <h1>Your whishlist is currently empty please add some products that you like</h1>
+    }
 
     if(isLoading){
         return "loading....";

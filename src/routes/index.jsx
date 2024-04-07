@@ -8,6 +8,8 @@ import Cart from '../pages/cart/Cart.jsx';
 import { createBrowserRouter } from 'react-router-dom';
 import GuestLayout from '../Layouts/Guest/GuestLayout.jsx';
 import UserLayout from '../Layouts/User/UserLayout.jsx';
+import ProductDetails from '../components/ProductDetail/ProductDetails.jsx';
+import Categories from '../pages/cart/categories/CategoriesPage.jsx';
 
 export const USER_URL = "/"
 
@@ -40,6 +42,14 @@ export const router = createBrowserRouter ([
         path:"/cart",
         element:<Cart/>
       },
+      {
+        path:"/product/:id",
+        element:<ProductDetails/>
+      },
+      {
+        path:"/products/categorie/:categorieId",
+        element:<Categories/>
+      }
     ]
   },
   {
