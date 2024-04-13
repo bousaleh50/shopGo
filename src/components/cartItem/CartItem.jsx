@@ -5,17 +5,16 @@ import { axiosClient } from "../../api/axios/axios";
 import { useGetProductQuery } from "../../api/appApi/appApi";
 import ItemLoader from "../Skeleton/ItemLoader";
 
-function CartItem({item}) {
+function CartItem({item,setTotalPrice}) {
     const {data,isError,isLoading} = useGetProductQuery(item.product_id);
-    const [isChanged,setIsChanged] = useState(false);
     const [quantity,setQuantity] = useState(item.quantity);
     const dispatch = useDispatch();
 
-    console.log("this is prp",data)
 
     const handleChangeQuantity = (e)=>{
         const {value} = e.target;
         setQuantity(value)
+        setTotalPrice(prev=>prev+=data.product.price);
         dispatch(updateCartAction({id:item.product_id,value}))
     }
 
@@ -29,7 +28,7 @@ function CartItem({item}) {
         )
     }
     return (
-        <tr className="shadow-md ">
+        <tr className="shadow-md">
             <td className="flex gap-2 p-4">
                 <img src="" alt="" />
                 <span>{data.product.description}</span>

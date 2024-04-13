@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartItem from "../../components/cartItem/CartItem";
 import { Form, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCartProductsQuery } from "../../api/appApi/appApi";
 import { cartActions } from "../../api/axios/cart/cartSlice";
 import { loadCartDataAction } from "../../api/axios/cart/cartActions";
+import CartTotalCounter from "./CartTotal";
+import { totalContext } from "./Context/TotalContext";
 
 function Cart() {
     const user  =  useSelector(state=>state.user.user)
     const products = useSelector(state=>state.cart.itemsList);
     const {data,isLoading,isSuccess,isError} = useCartProductsQuery()
+    const [totalPrice,setTotalPrice] = useState(0);
     const dispatch = useDispatch()
 
     useEffect(()=>{
         dispatch(loadCartDataAction());
     },[data])
+
 
     if(isLoading){
       return "...loding"
@@ -32,9 +36,9 @@ function Cart() {
     
 
     return (
-        <div className="w-full m-auto mt-20">
-            <Form action="">
-                <table className="w-full text-center table-auto" border={1}>
+        <div className="w-full m-auto ">
+            <Form action="" className="grid grid-cols-3 gap-4">
+                <table className="text-center table-auto col-span-2" border={1}>
                     <thead>
                         <tr className="border shadow-md bg-red-500">
                             <td className="p-4">Product</td>
@@ -45,13 +49,13 @@ function Cart() {
                     </thead>
                     <tbody>
                         {
-                            products.map((p,i)=><CartItem key={i} item={p}/>)
+                            products.map((p,i)=><CartItem key={i} item={p} setTotalPrice={setTotalPrice}/>)
                         }
                     </tbody>
                 </table>
-                <div className="mt-4 flex justify-between">
-                <Link to="/" className="border p-4 text-center">Return To Shop</Link>
-                    <button className="border p-4 text-center" onClick={null}>Update The Cart</button>
+                <CartTotalCounter data={data} totalPrice={totalPrice} setTotalPrice={setTotalPrice}/>
+                <div className="mt-10 col-span-3">
+                      <Link to="/" className="text-center bg-red-500 text-white p-4">Return To Shop</Link>
                 </div>
             </Form>
         </div>
